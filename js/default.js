@@ -3,9 +3,21 @@ function Entity(name, type, maxhealth) {
     this.type = type;
     this.maxHealth = maxhealth;
     
-    this.element = '<div class="entity '+this.type+'"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>'+this.name+'<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'+this.maxHealth+'" aria-valuemin="0" aria-valuemax="'+this.maxHealth+'" style="width: 100%;"></div></div></div>';
+//    this.element = '<div class="entity '+this.type+'"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>'+this.name+'<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'+this.maxHealth+'" aria-valuemin="0" aria-valuemax="'+this.maxHealth+'" style="width: 100%;"></div></div></div>';
+    
+    
+    this.leftcol = '<div class="left-column"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></div>'
+    this.rightcol = '<div class="right-column"><div class="name">'+this.name+'</div><div class="progress">'+
+        '<div class="progress-bar" role="progressbar" aria-valuenow="'+this.maxHealth+
+        '" aria-valuemin="0" aria-valuemax="'+this.maxHealth+'" style="width: 100%;">'+this.maxHealth+"/"+this.maxHealth+'</div>'+
+        '</div><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+
+        '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
+    
+    this.element = '<div class="entity '+this.type+'">'+this.leftcol+this.rightcol+'</div>';
     
     $("#main-container").append(this.element);
+    
+    
     
     
     
