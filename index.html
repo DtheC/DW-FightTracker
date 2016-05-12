@@ -17,19 +17,68 @@
 
 <body>
 
-   <div id="main-container">
-       
-       
-       
-   </div>
-    
-    
+    <div id="main-container">
+        <div class="entity player">
+            <div class="left-column">
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </div>
+            <div class="right-column">
+                <div class="name">CHARNAME</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="20" style="width: 100%;">3/60</div>
+                </div>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
 
     <script>
-        var eee = new Entity("Satchmo", "player", 10);
+        //var eee = new Entity("Satchmo", "player", 10);
+
+        $("div.right-column").hide();
+        
+        $("div.left-column").click(function(){
+            $(this).parent().children(".right-column").toggle("slow");
+        });
+        
+        $(".entity").draggable();
+        
+        var maxHealth = 60;
+        var currentHealth = 60;
+        
+        $("div.progress-bar").attr("aria-valuenow", currentHealth);
+        $("div.progress-bar").attr("aria-valuemax", maxHealth);
+        $("div.progress-bar").text(currentHealth + "/" + maxHealth);
+        
+        $(".right-column > .glyphicon-plus").click(function(){
+            currentHealth++;
+            $("div.progress-bar").text(currentHealth + "/" + maxHealth);
+            $("div.progress-bar").css("width", currentHealth/maxHealth*100 + "%");
+        });
+        
+        $(".right-column > .glyphicon-minus").click(function(){
+            currentHealth--;
+            $("div.progress-bar").text(currentHealth + "/" + maxHealth);
+            $("div.progress-bar").css("width", currentHealth/maxHealth*100 + "%");
+        });
+//
+//        $("div.left-column").hover(function() {
+//            $(this).parent().children(".right-column").fadeIn(100);
+//        }, function() {
+//            $(this).parent().children(".right-column").fadeOut(1000);
+//        });
+
     </script>
-    
-    
+
+
 </body>
 
 </html>
