@@ -16,38 +16,63 @@
 
 <body>
 
-    
 
+    <div class="counter"></div>
 
 
 
     <script>
+        function Counter(maxhealth) {
+            this.maxHealth = maxhealth;
+            this.currentHealth = maxhealth;
+            this.element = this;
+        }
+
+        Counter.prototype = {
+            minusScore: function () {
+                this.currentHealth--;
+            },
+            plusScore: function () {
+                this.currentHealth++;
+            },
+            updateText: function () {
+                this.element.text = this.currentHealth;
+            }
+        }
+
+        $(".counter").data("counter", new Counter(10));
+
+        
+        
+        function CreateEntity(name) {
+            return
+        }
+
         function Ent() {
             this.number = 10;
             var that = this;
-            
-            this.removeNumber = function(){
-             that.number -= 1;   
+
+            this.removeNumber = function () {
+                that.number -= 1;
             }
-            
-            function draw(){
-             var element = document.createElement("div");
+
+            function draw() {
+                var element = document.createElement("div");
                 element.innerHTML = that.number;
                 element.addEventListener("click", this.removeNumber, false);
                 document.body.appendChild(element);
             }
             draw();
         }
-        
-        
 
-//        Ent.prototype.removeNumber = function() {
-//            this.number--;
-//            console.log(this.number);
-//        }
-        
+
+
+        //        Ent.prototype.removeNumber = function() {
+        //            this.number--;
+        //            console.log(this.number);
+        //        }
+
         var eee = new Ent();
-
     </script>
 
 
