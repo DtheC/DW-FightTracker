@@ -5,54 +5,32 @@
  * The Model. Model stores items and notifies
  * observers about changes.
  */
-function EntityModel(items) {
-    this._charname = items.charname;
-    this._id = items.id;
-    this._maxHp = items.maxhp;
-    this._currentHp = items.maxhp;
-
-    this.hpChanged = new Event(this);
+function InterfaceModel(icons) {
+    this._characterControllers = [];
+    this._icons = icons; //All the posisble icons to select from
 
     //    this.itemAdded = new Event(this);
     //    this.itemRemoved = new Event(this);
-    //    this.selectedIndexChanged = new Event(this);
+    this.selectedIndexChanged = new Event(this);
+    this.characterAdded = new Event(this);
 }
 
-EntityModel.prototype = {
-    getId: function () {
-        return this._id;
+InterfaceModel.prototype = {
+    getIcons: function () {
+     return [].concat(this._icons);   
     },
-
-    getCharname: function () {
-        return this._charname;
-    },
-
-    getMaxHp: function () {
-        return this._maxHp;
-    },
-
-    getCurrentHp: function () {
-        return this._currentHp;
-    },
-
-    changeHp: function (value) {
-        this._currentHp += value;
-        if (this._currentHp > this._maxHp) {
-            this._currentHp = this._maxHp;
-        }
-        this.hpChanged.notify({
-            currentHp: this._currentHp,
-            maxHp: this._maxHp
-        });
+    
+    getCharacterControllers: function(){
+     return this._characterControllers;   
     }
 };
 
 /**
  * The View. View presents the model and provides
  * the UI events. The controller is attached to these
- * events to handle the user interraction.
+ * events to handle the user interaction.
  */
-function EntityView(model, elements) {
+function InterfaceView(model, elements) {
     this._model = model;
     this._elements = elements;
 
@@ -88,7 +66,7 @@ function EntityView(model, elements) {
     });
 }
 
-EntityView.prototype = {
+InterfaceView.prototype = {
     show: function () {
         this.rebuildEntity();
     },
@@ -111,7 +89,7 @@ EntityView.prototype = {
  * The Controller. Controller responds to user actions and
  * invokes changes on the model.
  */
-function EntityController(model, view) {
+function InterfaceController(model, view) {
     this._model = model;
     this._view = view;
 
@@ -134,7 +112,7 @@ function EntityController(model, view) {
     });
 }
 
-EntityController.prototype = {
+InterfaceController.prototype = {
     //    addItem: function () {
     //        var item = window.prompt('Add item:', '');
     //        if (item) {
@@ -161,60 +139,7 @@ EntityController.prototype = {
 };
 
 
-//Overkill function to generate a random id. Could just have a global variable which counts up. This is more fun though. Function from: http://stackoverflow.com/a/105074
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-}
 
-var characterControllers = [];
-
-
-
-function AddNewEntity(data) {
-    var newId = guid();
-
-    $("body").append("<div id=" + newId + "></div>");
-
-    var source = $("#entity-template").html();
-    var template = Handlebars.compile(source);
-    var context = {
-        id: newId,
-        type: data.icon,
-        charname: data.charname,
-        currenthp: data.maxhp,
-        maxhp: data.maxhp
-    };
-    var html = template(context);
-    $('#' + newId).html(html);
-
-    var model = new EntityModel(data),
-        view = new EntityView(model, {
-            'id': $('#' + newId),
-            'addButton': $('#' + newId).find('.glyphicon-plus'), //Need to figure out how to set these BEFORE it's drawn
-            'delButton': $('#' + newId).find('.glyphicon-minus')
-                //            'addButton': $('#' + newId).find('.glyphicon-plus'), //Need to figure out how to set these BEFORE it's drawn
-                //            'delButton': $('#' + newId).find('.glyphicon-minus')
-        }),
-        controller = new EntityController(model, view);
-
-    view.show();
-
-    characterControllers.push(controller);
-
-    $(".entity").draggable();
-    $('#' + newId + " .right-column").hide();
-
-    $('#' + newId + " .left-column").dblclick(function () {
-        $(this).parent().children(".right-column").toggle("slow");
-    });
-
-}
 
 /*
 $(function () {

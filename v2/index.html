@@ -2,6 +2,7 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="js/helpers.js"></script>
     <script src="js/mvc.js"></script>
     <script src="js/handlebars-v4.0.5.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -12,7 +13,7 @@
     <script id="entity-template" type="text/x-handlebars-template">
         <div class="entity player">
             <div class="left-column">
-                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <span class="glyphicon {{type}}" aria-hidden="true"></span>
             </div>
             <div class="right-column">
                 <div class="name">{{charname}}</div>
@@ -37,8 +38,23 @@
 </head>
 
 <body>
-
-
+   <div class="container-fluid">
+       
+          <div class="dropdown">
+         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+           Dropdown
+           <span class="caret"></span>
+         </button>
+         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+           <li><a href="#">Action</a></li>
+           <li><a href="#">Another action</a></li>
+           <li><a href="#">Something else here</a></li>
+           <li role="separator" class="divider"></li>
+           <li><a href="#">Separated link</a></li>
+         </ul>
+       </div>
+   </div>
+   
     <script>
         //Handbars helpers
 Handlebars.registerHelper('percent', function(currentValue, maxValue) {
@@ -46,7 +62,11 @@ Handlebars.registerHelper('percent', function(currentValue, maxValue) {
     return new Handlebars.SafeString(value);
 });
         
-        AddNewEntity();
+        AddNewEntity({
+        charname: "Travis",
+        maxhp: 100,
+        icon : "glyphicon-stop"
+        });
     </script>
 
 </body>
