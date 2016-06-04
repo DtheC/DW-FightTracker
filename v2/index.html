@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="js/all.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script id="entity-template" type="text/x-handlebars-template">
+        <div class="entity player">
+            <div class="left-column">
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </div>
+            <div class="right-column">
+                <div class="name">{{charname}}</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{currenthp}}" aria-valuemin="0" aria-valuemax="{{maxhp}}" style="width: 100%;">{{currenthp}}/{{maxhp}}</div>
+                </div>
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </div>
+        </div>
+    </script>
+
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="row container">
+        <div class="col-xs-4">
+            <select id="list" class="form-control" size="10"></select>
+        </div>
+        <div class="col-xs-8">
+            <button id="plusBtn" class="btn btn-default btn-block">+</button>
+            <button id="minusBtn" class="btn btn-default btn-block">-</button>
+        </div>
+    </div>
+
+
+    <script>
+        var source = $("#entity-template").html();
+        var template = Handlebars.compile(source);
+        var context = {
+            charname: "Travis",
+            currenthp: "20",
+            maxhp: "50"
+        };
+        var html = template(context);
+
+
+        $("body").append(html);
+        $(".entity").draggable();
+    </script>
+
+</body>
+
+</html>

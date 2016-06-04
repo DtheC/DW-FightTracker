@@ -1,0 +1,38 @@
+.row {
+    padding-top: 10px;
+}
+.btn {
+    width: 5em;
+}
+
+
+.entity {
+    position: absolute;
+ width: 250px;
+}
+
+.left-column {
+    float: left;
+    padding-top: 0.25em;
+}
+
+.right-column {
+   float: left;
+}
+
+.entity > .left-column span{
+ font-size: 2em; 
+}
+
+.entity > .right-column span{
+ font-size: 1em;
+}
+
+.right-column > .name {
+    font-size: 2em;
+    display: inline;
+}
+
+.hide {
+ display: none;
+}
