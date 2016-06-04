@@ -2,7 +2,7 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="js/all.js"></script>
+    <script src="js/mvc.js"></script>
     <script src="js/handlebars-v4.0.5.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -43,18 +43,7 @@
 
 
     <script>
-        var source = $("#entity-template").html();
-        var template = Handlebars.compile(source);
-        var context = {
-            charname: "Travis",
-            currenthp: "20",
-            maxhp: "50"
-        };
-        var html = template(context);
-
-
-        $("body").append(html);
-        $(".entity").draggable();
+        
     </script>
 
 </body>
