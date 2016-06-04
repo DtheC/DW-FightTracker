@@ -17,7 +17,7 @@
             <div class="right-column">
                 <div class="name">{{charname}}</div>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="{{currenthp}}" aria-valuemin="0" aria-valuemax="{{maxhp}}" style="width: 100%;">{{currenthp}}/{{maxhp}}</div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{currenthp}}" aria-valuemin="0" aria-valuemax="{{maxhp}}" style="width: {{percent currenthp maxhp}}%;">{{currenthp}}/{{maxhp}}</div>
                 </div>
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -27,7 +27,7 @@
 
     <script id="entity-progress-template" type="text/x-handlebars-template">
         <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{currenthp}}" aria-valuemin="0" aria-valuemax="{{maxhp}}" style="width: 100%;">{{currenthp}}/{{maxhp}}</div>
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{currenthp}}" aria-valuemin="0" aria-valuemax="{{maxhp}}" style="width: {{percent currenthp maxhp}}%;">{{currenthp}}/{{maxhp}}</div>
         </div>
     </script>
 
@@ -40,6 +40,12 @@
 
 
     <script>
+        //Handbars helpers
+Handlebars.registerHelper('percent', function(currentValue, maxValue) {
+   var value =  currentValue/maxValue*100;
+    return new Handlebars.SafeString(value);
+});
+        
         AddNewEntity();
     </script>
 

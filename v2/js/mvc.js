@@ -193,8 +193,10 @@ function guid() {
 
 var characterControllers = [];
 
+
+
 function AddNewEntity() {
-    var newId = 1;
+    var newId = guid();
 
     var data = {
         charname: "Travis",
@@ -229,7 +231,7 @@ function AddNewEntity() {
 
     characterControllers.push(controller);
     
-    //$(".entity").draggable();
+    $(".entity").draggable();
 }
 
 /*
