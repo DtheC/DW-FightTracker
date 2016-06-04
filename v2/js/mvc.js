@@ -45,7 +45,7 @@ EntityModel.prototype = {
     getCharname: function () {
         return this._charname;
     },
-    
+
     getMaxHp: function () {
         return this._maxHp;
     },
@@ -81,24 +81,24 @@ function EntityView(model, elements) {
     var _this = this;
 
     // attach model listeners
-    
+
     this._model.hpChanged.attach(function () {
-       _this.rebuildEntity(); 
+        _this.rebuildEntity();
     });
-    
-//    this._model.itemAdded.attach(function () {
-//        _this.rebuildList();
-//    });
-//    this._model.itemRemoved.attach(function () {
-//        _this.rebuildList();
-//    });
+
+    //    this._model.itemAdded.attach(function () {
+    //        _this.rebuildList();
+    //    });
+    //    this._model.itemRemoved.attach(function () {
+    //        _this.rebuildList();
+    //    });
 
     // attach listeners to HTML controls
-//    this._elements.id.change(function (e) {
-//        _this.listModified.notify({
-//            index: e.target.selectedIndex
-//        });
-//    });
+    //    this._elements.id.change(function (e) {
+    //        _this.listModified.notify({
+    //            index: e.target.selectedIndex
+    //        });
+    //    });
     this._elements.addButton.click(function () {
         _this.addButtonClicked.notify();
     });
@@ -114,17 +114,15 @@ EntityView.prototype = {
 
     rebuildEntity: function () {
         var list, items, key;
-        
-        var source = $("#entity-template").html();
+
+        var source = $("#entity-progress-template").html();
         var template = Handlebars.compile(source);
         var context = {
-            id : this._model.getId(),
-            charname: this._model.getCharname(),
             currenthp: this._model.getCurrentHp(),
             maxhp: this._model.getMaxHp()
         };
         var html = template(context);
-        $(this._elements.id.selector).html(html);
+        $(this._elements.id.selector).find(".progress").html(html);
     }
 };
 
@@ -138,43 +136,47 @@ function EntityController(model, view) {
 
     var _this = this;
 
-    this._view.addButtonClicked.attach(function (sender, args){
-       console.log(sender, args); 
+    this._view.addButtonClicked.attach(function () {
+        _this.changeHp(1);
     });
-    
-//    this._view.listModified.attach(function (sender, args) {
-//        _this.updateSelected(args.index);
-//    });
-//
-//    this._view.addButtonClicked.attach(function () {
-//        _this.addItem();
-//    });
+
+    //    this._view.listModified.attach(function (sender, args) {
+    //        _this.updateSelected(args.index);
+    //    });
+    //
+    //    this._view.addButtonClicked.attach(function () {
+    //        _this.addItem();
+    //    });
 
     this._view.delButtonClicked.attach(function () {
-        console.log(sender, args);
+        _this.changeHp(-1);
     });
 }
 
 EntityController.prototype = {
-//    addItem: function () {
-//        var item = window.prompt('Add item:', '');
-//        if (item) {
-//            this._model.addItem(item);
-//        }
-//    },
-//
-//    delItem: function () {
-//        var index;
-//
-//        index = this._model.getSelectedIndex();
-//        if (index !== -1) {
-//            this._model.removeItemAt(this._model.getSelectedIndex());
-//        }
-//    },
+    //    addItem: function () {
+    //        var item = window.prompt('Add item:', '');
+    //        if (item) {
+    //            this._model.addItem(item);
+    //        }
+    //    },
+    //
+    //    delItem: function () {
+    //        var index;
+    //
+    //        index = this._model.getSelectedIndex();
+    //        if (index !== -1) {
+    //            this._model.removeItemAt(this._model.getSelectedIndex());
+    //        }
+    //    },
 
-//    updateSelected: function (index) {
-//        this._model.setSelectedIndex(index);
-//    }
+    changeHp: function (value) {
+        this._model.changeHp(value);
+    }
+
+    //    updateSelected: function (index) {
+    //        this._model.setSelectedIndex(index);
+    //    }
 };
 
 
@@ -192,24 +194,42 @@ function guid() {
 var characterControllers = [];
 
 function AddNewEntity() {
-    var newId = guid();
-    
-    
-    
-    var model = new EntityModel({charname: "Travis", id : newId, maxhp : 50}),
+    var newId = 1;
+
+    var data = {
+        charname: "Travis",
+        id: newId,
+        maxhp: 50
+    };
+
+    $("body").append("<div id=" + newId + "></div>");
+
+    var source = $("#entity-template").html();
+    var template = Handlebars.compile(source);
+    var context = {
+        id: newId,
+        charname: data.charname,
+        currenthp: data.maxhp,
+        maxhp: data.maxhp
+    };
+    var html = template(context);
+    $('#' + newId).html(html);
+
+    var model = new EntityModel(data),
         view = new EntityView(model, {
             'id': $('#' + newId),
-            'addButton': $('#' + newId + ' .glyphicon-plus'), //Need to figure out how to set these BEFORE it's drawn
-            'delButton': $('#' + newId + ' .glyphicon-minus')
+            'addButton': $('body').find('.glyphicon-plus'), //Need to figure out how to set these BEFORE it's drawn
+            'delButton': $('body').find('.glyphicon-minus')
+//            'addButton': $('#' + newId).find('.glyphicon-plus'), //Need to figure out how to set these BEFORE it's drawn
+//            'delButton': $('#' + newId).find('.glyphicon-minus')
         }),
         controller = new EntityController(model, view);
-    
-    $("body").append("<div id="+newId+"></div>");
-    
+
     view.show();
 
     characterControllers.push(controller);
-    $(".entity").draggable();
+    
+    //$(".entity").draggable();
 }
 
 /*

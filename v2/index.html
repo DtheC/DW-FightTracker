@@ -25,25 +25,22 @@
         </div>
     </script>
 
+    <script id="entity-progress-template" type="text/x-handlebars-template">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{currenthp}}" aria-valuemin="0" aria-valuemax="{{maxhp}}" style="width: 100%;">{{currenthp}}/{{maxhp}}</div>
+        </div>
+    </script>
+
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 </head>
 
 <body>
-    <div class="row container">
-        <div class="col-xs-4">
-            <select id="list" class="form-control" size="10"></select>
-        </div>
-        <div class="col-xs-8">
-            <button id="plusBtn" class="btn btn-default btn-block">+</button>
-            <button id="minusBtn" class="btn btn-default btn-block">-</button>
-        </div>
-    </div>
 
 
     <script>
-        
+        AddNewEntity();
     </script>
 
 </body>

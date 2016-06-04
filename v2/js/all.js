@@ -1,7 +1,5 @@
 //Original code from: https://alexatnet.com/articles/model-view-controller-mvc-javascript
 
-//List of Models??
-
 function Event(sender) {
     this._sender = sender;
     this._listeners = [];
@@ -24,7 +22,7 @@ Event.prototype = {
  * The Model. Model stores items and notifies
  * observers about changes.
  */
-function EntityModel(items) {
+function ListModel(items) {
     this._items = items;
     this._selectedIndex = -1;
 
@@ -33,7 +31,7 @@ function EntityModel(items) {
     this.selectedIndexChanged = new Event(this);
 }
 
-EntityModel.prototype = {
+ListModel.prototype = {
     getItems: function () {
         return [].concat(this._items);
     },
@@ -97,7 +95,7 @@ function ListView(model, elements) {
     });
 
     // attach listeners to HTML controls
-    this._elements.id.change(function (e) {
+    this._elements.list.change(function (e) {
         _this.listModified.notify({
             index: e.target.selectedIndex
         });
@@ -176,47 +174,14 @@ ListController.prototype = {
     }
 };
 
-
-//Overkill function to generate a random id. Could just have a global variable which counts up. This is more fun though. Function from: http://stackoverflow.com/a/105074
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-}
-
-var characterControllers = [];
-
-function AddNewEntity() {
-    var newId = guid();
-    
-    
-    
-    var model = new EntityModel([newId, 50, 50]),
-        view = new ListView(model, {
-            'id': $('#' + newId),
-            'addButton': $('#' + newId + '.glyphicon-plus'),
-            'delButton': $('#' + newId + '.glyphicon-minus')
-        }),
-        controller = new ListController(model, view);
-    
-    view.show();
-
-    characterControllers.append(controller);
-}
-/*
 $(function () {
-    var model = new EntityModel(['PHP', 'JavaScript']),
+    var model = new ListModel(['PHP', 'JavaScript']),
         view = new ListView(model, {
             'list': $('#list'),
-            'addButton': $('#plusBtn'),
-            'delButton': $('#minusBtn')
+                'addButton': $('#plusBtn'),
+                'delButton': $('#minusBtn')
         }),
         controller = new ListController(model, view);
 
     view.show();
 });
-*/
