@@ -8,8 +8,8 @@
 function EntityModel(items) {
     this._charname = items.charname;
     this._id = items.id;
-    this._maxHp = items.maxhp;
-    this._currentHp = items.maxhp;
+    this._maxHp = parseInt(items.maxhp);
+    this._currentHp = parseInt(items.maxhp);
 
     this.hpChanged = new Event(this);
 
@@ -205,15 +205,14 @@ function AddNewEntity(data) {
 
     view.show();
 
-    characterControllers.push(controller);
-
     $(".entity").draggable();
     $('#' + newId + " .right-column").hide();
 
     $('#' + newId + " .left-column").dblclick(function () {
         $(this).parent().children(".right-column").toggle("slow");
     });
-
+    
+    return controller;
 }
 
 /*

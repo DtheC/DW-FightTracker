@@ -4,6 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="js/helpers.js"></script>
     <script src="js/mvc.js"></script>
+    <script src="js/interface.js"></script>
     <script src="js/handlebars-v4.0.5.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -38,36 +39,60 @@
 </head>
 
 <body>
-   <div class="container-fluid">
-       
-          <div class="dropdown">
-         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-           Dropdown
-           <span class="caret"></span>
-         </button>
-         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-           <li><a href="#">Action</a></li>
-           <li><a href="#">Another action</a></li>
-           <li><a href="#">Something else here</a></li>
-           <li role="separator" class="divider"></li>
-           <li><a href="#">Separated link</a></li>
-         </ul>
-       </div>
-   </div>
-   
-    <script>
-        //Handbars helpers
-Handlebars.registerHelper('percent', function(currentValue, maxValue) {
-   var value =  currentValue/maxValue*100;
-    return new Handlebars.SafeString(value);
-});
-        
-        AddNewEntity({
-        charname: "Travis",
-        maxhp: 100,
-        icon : "glyphicon-stop"
-        });
-    </script>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <div class="btn-group dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span id="current-glyph" class="glyphicon glyphicon-cutlery"></span> <span class="caret"></span>
+                            </button>
+                            <ul id="glyph-list" class="dropdown-menu list-inline" role="menu">
+                                <li><span class="glyphicon glyphicon-cutlery"></span></li>
+                                <li><span class="glyphicon glyphicon-fire"></span></li>
+                                <li><span class="glyphicon glyphicon-glass"></span></li>
+                                <li><span class="glyphicon glyphicon-heart"></span></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="character-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="health">Health:</label>
+                        <input type="number" class="form-control" id="character-health">
+                    </div>
+
+                    <button type="submit" id="add-char-button" class="btn btn-default">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <script>
+            //Handbars helpers
+            Handlebars.registerHelper('percent', function(currentValue, maxValue) {
+                var value = currentValue / maxValue * 100;
+                return new Handlebars.SafeString(value);
+            });
+            
+            $("#add-char-button").click( function(e){
+                e.preventDefault();
+                
+                var data = {};
+                
+                
+            });
+
+            addInterface();
+            
+           
+
+        </script>
 
 </body>
 
